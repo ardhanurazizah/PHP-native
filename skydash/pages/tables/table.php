@@ -325,7 +325,7 @@ require 'function.php';
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Surat</a></li>
               </ul>
             </div>
             <div class="collapse" id="tables">
@@ -389,157 +389,171 @@ require 'function.php';
                       </thead>
                       <tbody>
                       <?php
-                              $dataSurat = mysqli_query($conn, "SELECT * FROM surat 
-                              JOIN pengirim ON surat.id_pengirim=pengirim.id_pengirim 
-                              JOIN penerima ON surat.id_penerima=penerima.id_penerima 
-                              JOIN kategori ON surat.id_kategori=kategori.id_kategori");
-                               $i = 1;
-                              while($data=mysqli_fetch_array($dataSurat)){
-                              
-                               
-                                $nomor_surat = $data['nomor_surat'];
-                                $tanggal = $data['tanggal'];
-                                $keterangan = $data['keterangan'];
-                                $nama_pengirim = $data['nama_pengirim'];
-                                $nama_penerima = $data['nama_penerima'];
-                                $nama_kategori = $data['nama_kategori'];
-                                $id_surat = $data['id_surat'];
-                                $foto = $data['foto'];
-                              ?>
-                              <tr> 
-                                <td><?=$i++;?></td>
-                                <td><?=$nomor_surat;?></td>
-                                <td><?=$tanggal;?></td>
-                                <td><?=$keterangan;?></td>
-                                <td><?=$nama_pengirim;?></td>
-                                <td><?=$nama_penerima;?></td>
-                                <td><?=$nama_kategori;?></td>
-                                <td><img src="<?php echo $foto; ?>" alt="" style="width: 100px; height: 100px;">
-</td>
-
-                                <td>
-                                <a class="btn btn-primary detail-button" data-toggle="modal" data-target="#detailSurat<?php echo $id_surat; ?>">Detail</a>
-                            <a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editSurat" data-id="<?=$id_surat;?>">Edit</a>
-                            <a class="btn btn-danger hapus-button" data-toggle="modal" data-target="#deleteSurat<?php echo $id_surat; ?>">Hapus</a>
+                      $dataSurat = mysqli_query($conn, "SELECT * FROM surat
+                      JOIN pengirim ON surat.id_pengirim=pengirim.id_pengirim 
+                      JOIN penerima ON surat.id_penerima=penerima.id_penerima 
+                      JOIN kategori ON surat.id_kategori=kategori.id_kategori");
+                      $i = 1;
+                      while($data=mysqli_fetch_array($dataSurat)){
+                        $nomor_surat = $data['nomor_surat'];
+                        $tanggal = $data['tanggal'];
+                        $keterangan = $data['keterangan'];
+                        $nama_pengirim = $data['nama_pengirim'];
+                        $nama_penerima = $data['nama_penerima'];
+                        $nama_kategori = $data['nama_kategori'];
+                        $id_surat = $data['id_surat'];
+                        $foto = $data['foto'];
+                        ?>
+                        <tr>
+                          <td><?=$i++;?></td>
+                          <td><?=$nomor_surat;?></td>
+                          <td><?=$tanggal;?></td>
+                          <td><?=$keterangan;?></td>
+                          <td><?=$nama_pengirim;?></td>
+                          <td><?=$nama_penerima;?></td>
+                          <td><?=$nama_kategori;?></td>
+                          <td>
+                            <!-- <img src="<?php echo $foto; ?>" alt="" style="width: 100px; height: 100px;"> -->
                           </td>
-                              </tr>
-                              <?php
-                              };
-                              ?>      
-                      </tbody>
-                    </table>
+                          <td>
+                            <a href="<?php echo $foto; ?>" class="btn btn-info" download>Download File</a>
+                            <a class="btn btn-primary detail-button" data-toggle="modal" data-target="#detailSurat<?php echo $id_surat; ?>">Detail</a>
+                            <a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editSurat" data-id="<?=$id_surat;?>">Edit</a>
+                            <a href="?hapus=<?php echo $data['id_surat']; ?>" class="btn-danger btn" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
+                          </td>
+                        </tr>
+                        <?php
+                        };
+                        ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- content-wrapper ends -->
+              <!-- partial:../../partials/_footer.html -->
+              <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                  <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
+                  <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+                </div>
+              </footer>
+              <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+          </div>
+          <!-- page-body-wrapper ends -->
+        </div>
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script src="../../vendors/js/vendor.bundle.base.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page -->
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src="../../js/off-canvas.js"></script>
+        <script src="../../js/hoverable-collapse.js"></script>
+        <script src="../../js/template.js"></script>
+        <script src="../../js/settings.js"></script>
+        <script src="../../js/todolist.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <!-- End custom js for this page-->
+      </body>
+      
+      <!-- The Modal 3-->
+      <div class="modal fade" id="myModal3">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Tambah Data</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
+            <!-- Modal body -->
+            <form method="post" enctype="multipart/form-data">
+              <div class="modal-body">
+                <input type="text" name="nomor_surat" placeholder="nomor_surat" class="form-control" required><br>
+                <input type="text" name="keterangan" placeholder="keterangan" class="form-control" required><br>
+                <!-- <input type="hidden" name="tanggal" value="<?php echo date('Y-m-d'); ?>" required><br> -->
+                <select name="pengirimnya" class="form-control">
+                  <?php
+                  $ambildata = mysqli_query($conn,"select * from pengirim");
+                  while($fetcharray = mysqli_fetch_array($ambildata)){
+                  $nama_pengirim = $fetcharray['nama_pengirim'];
+                  $id_pengirim = $fetcharray['id_pengirim'];
+                  ?>
+                  <option value="<?=$id_pengirim;?>"><?=$nama_pengirim;?></option>
+                  <?php
+                  }
+                  ?>
+                </select><br>
+                <select name="penerimanya" class="form-control">
+                  <?php
+                  $ambildata = mysqli_query($conn,"select * from penerima");
+                  while($fetcharray = mysqli_fetch_array($ambildata)){
+                  $nama_penerima = $fetcharray['nama_penerima'];
+                  $id_penerima = $fetcharray['id_penerima'];
+                  ?>
+                  <option value="<?=$id_penerima;?>"><?=$nama_penerima;?></option>
+                  <?php
+                  }
+                  ?>
+                </select><br>
+                <select name="kategorinya" class="form-control">
+                  <?php
+                  $ambildata = mysqli_query($conn,"select * from kategori");
+                  while($fetcharray = mysqli_fetch_array($ambildata)){
+                  $nama_kategori = $fetcharray['nama_kategori'];
+                  $id_kategori = $fetcharray['id_kategori'];
+                  ?>
+                  <option value="<?=$id_kategori;?>"><?=$nama_kategori;?></option>
+                  <?php
+                  }
+                  ?>
+                </select><br>
+                <input type="file" id="foto" name="foto" class="form-control" onchange="validateFile()" required>
+                <!-- <input type="file" id="foto" name="foto" class="form-control"> -->
+                <button type="submit" class="btn btn-primary" name="suratBaru">Submit</button>
+              </div>
+            </form>
             
-        <!-- content-wrapper ends -->
-        <!-- partial:../../partials/_footer.html -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
           </div>
-        </footer>
-        <!-- partial -->
+        </div>
       </div>
-      <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
-  <script src="../../vendors/js/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page -->
-  <!-- End plugin js for this page -->
-  <!-- inject:js -->
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/hoverable-collapse.js"></script>
-  <script src="../../js/template.js"></script>
-  <script src="../../js/settings.js"></script>
-  <script src="../../js/todolist.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <!-- End custom js for this page-->
-</body>
+      <script>
+function validateFile() {
+  var fileInput = document.getElementById('foto');
+  var filePath = fileInput.value;
+  var allowedExtensions = /(\.pdf)$/i; // Hanya izinkan ekstensi file PDF
+  var maxSize = 5 * 1024 * 1024; // Ukuran maksimal file dalam bytes (contoh: 5 MB)
 
-  <!-- The Modal 3-->
-<div class="modal fade" id="myModal3">
-    <div class="modal-dialog">
-      <div class="modal-content">
+  // Mengecek apakah ekstensi file sesuai dengan yang diizinkan
+  if (!allowedExtensions.exec(filePath)) {
+    alert('File yang diunggah harus dalam format PDF.');
+    fileInput.value = ''; // Menghapus nilai file input
+    return false;
+  }
+
+  // Mengecek ukuran file
+  if (fileInput.files[0].size > maxSize) {
+    alert('Ukuran file terlalu besar. Maksimal ukuran file adalah 5 MB.');
+    fileInput.value = ''; // Menghapus nilai file input
+    return false;
+  }
+}
+</script>
       
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Tambah Data</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-      <form method="post">
-        <div class="modal-body">
-        <input type="text" name="nomor_surat" placeholder="nomor_surat" class="form-control" required><br>
-        <input type="text" name="keterangan" placeholder="keterangan" class="form-control" required><br>
-        <select name="pengirimnya" class="form-control">
-          <?php
-          $ambildata = mysqli_query($conn,"select * from pengirim");
-          while($fetcharray = mysqli_fetch_array($ambildata)){
-            $nama_pengirim = $fetcharray['nama_pengirim'];
-            $id_pengirim = $fetcharray['id_pengirim'];
-            ?>
-            <option value="<?=$id_pengirim;?>"><?=$nama_pengirim;?></option>
-            <?php
-          }
-          ?>
-          </select><br>
-          <select name="penerimanya" class="form-control">
-          <?php
-          $ambildata = mysqli_query($conn,"select * from penerima");
-          while($fetcharray = mysqli_fetch_array($ambildata)){
-            $nama_penerima = $fetcharray['nama_penerima'];
-            $id_penerima = $fetcharray['id_penerima'];
-            ?>
-            <option value="<?=$id_penerima;?>"><?=$nama_penerima;?></option>
-            <?php
-          }
-          ?>
-          </select><br>
-          <select name="kategorinya" class="form-control">
-          <?php
-          $ambildata = mysqli_query($conn,"select * from kategori");
-          while($fetcharray = mysqli_fetch_array($ambildata)){
-            $nama_kategori = $fetcharray['nama_kategori'];
-            $id_kategori = $fetcharray['id_kategori'];
-            ?>
-            <option value="<?=$id_kategori;?>"><?=$nama_kategori;?></option>
-            <?php
-          }
-          ?>
-          </select><br>
-          <input type="file" name="foto" class="form-control">
-        <!-- <input type="text" name="id_pengirim" placeholder="id_pengirim" class="form-control" required><br>
-        <input type="text" name="id_penerima" placeholder="id_penerima" class="form-control" required><br>
-        <input type="text" name="id_kategori" placeholder="id_kategori" class="form-control" required><br> -->
-        <!-- <input type="file" name="gambar" class="form-control-file"><br> -->
-        <button type="submit" class="btn btn-primary" name="suratBaru">Submit</button>
-        </div>
-      </form>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <!-- The Modal -->
-<div class="modal fade" id="editSurat">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
+      <!-- The Modal -->
+      <div class="modal fade" id="editSurat">
+        <div class="modal-dialog">
+          <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Edit Data Surat</h4>
@@ -547,7 +561,7 @@ require 'function.php';
             </div>
 
             <!-- Modal body -->
-<form method="post" action="table.php">
+<form method="post" action="table.php" enctype="multipart/form-data">
     <div class="modal-body">
         <input type="hidden" name="id_surat" value="<?php echo $id_surat; ?>">
         <input type="text" name="nomor_surat" value="<?php echo $nomor_surat; ?>" placeholder="Nomor Surat" class="form-control" required><br>
@@ -556,8 +570,8 @@ require 'function.php';
         <input type="hidden" name="id_pengirim" value="<?php echo $id_pengirim; ?>" placeholder="Keterangan" class="form-control" required><br>
         <input type="hidden" name="id_penerima" value="<?php echo $id_penerima; ?>" placeholder="Keterangan" class="form-control" required><br>
         <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>" placeholder="Keterangan" class="form-control" required><br>
-        <!-- <input type="file" name="gambar" class="form-control-file"><br> 
-        <div class="gambar-preview"></div> <br> -->
+        <input type="file" name="foto" class="form-control-file" enctype="multipart/form-data"><br> 
+        <!-- <div class="gambar-preview"></div> <br> -->
         <button type="submit" class="btn btn-primary" name="updateSurat">Update</button>
     </div>
 </form>
@@ -592,57 +606,38 @@ $('#editSurat .gambar-preview').empty().append(imgElement);
       $('#editSurat input[name="id_pengirim"]').val(id_pengirim);
       $('#editSurat input[name="id_penerima"]').val(id_penerima);
       $('#editSurat input[name="id_kategori"]').val(id_kategori);
-      var imgElement = $('<img>').attr('src', gambar);
+      // var imgElement = $('<img>').attr('src', gambar);
       $('#editSurat .gambar-preview').empty().append(imgElement);
     });
   });
 </script>
 
-<!-- Modal Hapus Pengirim -->
-<div class="modal fade" id="deleteSurat<?php echo $id_surat; ?>">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Hapus Surat?</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <p>Anda yakin ingin menghapus data surat ini?</p>
-        </div>
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <form method="POST">
-            <input type="hidden" name="id_surat" value="<?php echo $id_surat; ?>">
-            <button type="submit" class="btn btn-danger" name="hapusSurat">Hapus</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          </form>
-        </div>
+<!-- Modal Detail Surat -->
+<div class="modal fade" id="detailSurat<?php echo $id_surat; ?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Detail Surat</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <p><strong>Nomor Surat:</strong> <?php echo $nomor_surat; ?></p>
+        <p><strong>Tanggal:</strong> <?php echo $tanggal; ?></p>
+        <p><strong>Keterangan:</strong> <?php echo $keterangan; ?></p>
+        <p><strong>Nama Pengirim:</strong> <?php echo $nama_pengirim; ?></p>
+        <p><strong>Nama Penerima:</strong> <?php echo $nama_penerima; ?></p>
+        <p><strong>Kategori:</strong> <?php echo $nama_kategori; ?></p>
+        <img src="<?php echo $foto; ?>" alt="" style="width: 100px; height: 100px;">
+      </div>
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-  <script>
-  $(document).ready(function() {
-    $('.hapus-button').click(function() {
-      var id_surat = $(this).data('id');
-      var nomor_surat = $(this).closest('tr').find('td:nth-child(2)').text();
-      var tanggal = $(this).closest('tr').find('td:nth-child(3)').text();
-      var keterangan = $(this).closest('tr').find('td:nth-child(4)').text();
-      var id_pengirim = $(this).closest('tr').find('td:nth-child(5)').text();
-      var id_penerima = $(this).closest('tr').find('td:nth-child(6)').text();
-      var id_kategori = $(this).closest('tr').find('td:nth-child(7)').text();
-
-      $('#editSurat input[name="id_surat"]').val(id_surat);
-      $('#editSurat input[name="nomor_surat"]').val(nomor_surat);
-      $('#editSurat input[name="tanggal"]').val(tanggal);
-      $('#editSurat input[name="keterangan"]').val(keterangan);
-      $('#editSurat input[name="id_pengirim"]').val(id_pengirim);
-      $('#editSurat input[name="id_penerima"]').val(id_penerima);
-      $('#editSurat input[name="id_kategori"]').val(id_kategori);
-    });
-  });
-</script>
+</div>
 
 
 </html>

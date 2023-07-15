@@ -325,7 +325,7 @@ require 'function.php';
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Surat</a></li>
               </ul>
             </div>
             <div class="collapse" id="tables">
@@ -397,10 +397,20 @@ require 'function.php';
                                 <td><?=$i++;?></td>
                                 <td><?=$nama_kategori;?></td>
                                 <td>
-                                  <a class="btn btn-warning edit-button" data-toggle="modal" data-target="#editKategori" data-id="<?$id_kategori;?>">
-                                    Edit</a>
-                                  <a class="btn btn-danger hapus-button" data-toggle="modal" data-target="#deleteKategori<?php echo $id_kategori; ?>">Hapus</a>
-                            </td>
+                                <a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editKategori" data-id="<?=$id_kategori;?>">Edit</a>
+                               
+                                <?php
+                                // Check if data is used in the surat table
+                                $isDataUsed = mysqli_query($conn, "SELECT * FROM surat WHERE id_kategori = $id_kategori");
+                                if (mysqli_num_rows($isDataUsed) > 0) {
+                                  // Data is used, display the delete button with an onclick event to show the warning alert
+                                  echo '<a href="?hapus='.$data['id_kategori'].'" class="btn-danger btn" onclick="return showDeleteWarning()">Hapus</a>';
+                                } else {
+                                  // Data is not used, display the delete button
+                                  echo '<a href="?hapus='.$data['id_kategori'].'" class="btn-danger btn" onclick="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')">Hapus</a>';
+                                }
+                                ?>
+                                </td>
                               </tr>
                             <?php
                               };
@@ -470,7 +480,7 @@ require 'function.php';
     </div>
   </div>
 
-  <!-- The Modal -->
+  The Modal
 <div class="modal fade" id="editKategori">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -484,7 +494,7 @@ require 'function.php';
             <!-- Modal body -->
 <form method="post" action="kategori.php">
     <div class="modal-body">
-        <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>">
+        <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>"><br>
         <input type="text" name="nama_kategori" value="<?php echo $nama_kategori; ?>" placeholder="Nama Kategori" class="form-control" required><br>
         <button type="submit" class="btn btn-primary" name="updateKategori">Update</button>
     </div>
@@ -504,48 +514,17 @@ require 'function.php';
     $('.edit-button').click(function() {
       var id_kategori = $(this).data('id');
       var nama_kategori = $(this).closest('tr').find('td:nth-child(2)').text();
-      console.log(id_kategori);
 
       $('#editKategori input[name="id_kategori"]').val(id_kategori);
       $('#editKategori input[name="nama_kategori"]').val(nama_kategori);
+      
     });
   });
 </script>
-
-<!-- Modal Hapus Pengirim -->
-<div class="modal fade" id="deleteKategori<?php echo $id_kategori; ?>">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Hapus Pengirim?</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <p>Anda yakin ingin menghapus data kategori ini?</p>
-        </div>
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <form method="POST">
-            <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>">
-            <button type="submit" class="btn btn-danger" name="hapusKategori">Hapus</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-  $(document).ready(function() {
-    $('.hapus-button').click(function() {
-      var id_kategori = $(this).data('id');
-      var nama_kategori = $(this).closest('tr').find('td:nth-child(2)').text();
-      
-
-      $('#editKategori input[name="id_kategori"]').val(id_kategori);
-      $('#editKategori input[name="nama_kategori"]').val(nama_kategori);
-    });
-  });
+<script>
+function showDeleteWarning() {
+  alert('Data tidak dapat di hapus');
+  return false; // Prevent the default action (deletion)
+}
 </script>
 </html>

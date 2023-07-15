@@ -325,7 +325,7 @@ require 'function.php';
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Surat</a></li>
               </ul>
             </div>
             <div class="collapse" id="tables">
@@ -396,8 +396,11 @@ require 'function.php';
                           <td><?php echo $nomorUrut;?></td>
                           <td><?=$keterangan;?></td>
                           <td><?=$deskripsi_lampiran;?></td>
-                          <td><a href="#" class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editLampiran" data-id="<?=$id_lampiran;?>">Edit</a>
-                          <a class="btn btn-danger hapus-button" data-toggle="modal" data-target="#deleteLampiran<?php echo $id_lampiran; ?>">Hapus</a>
+                          <td>
+                            <a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editLampiran" data-id="<?=$id_lampiran;?>">Edit</a>
+                            <a href="?hapus=<?php echo $data['id_lampiran']; ?>" class="btn-danger btn" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
+                        </td>
+                         
                         </tr>
                         <?php
                         $nomorUrut++;
@@ -480,49 +483,7 @@ require 'function.php';
     </div>
   </div>
 
-  <!-- The Modal -->
-<div class="modal fade" id="editLampiran">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Data Lampiran</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-<form method="post" action="lampiran.php">
-    <div class="modal-body">
-        <input type="hidden" name="id_lampiran" value="<?php echo $id_lampiran; ?>">
-        <input type="hidden" name="id_surat" value="<?php echo $id_surat; ?>" >
-        <input type="text" name="deskripsi_lampiran" value="<?php echo $deskripsi_lampiran; ?>" placeholder="Deskripsi" class="form-control" required><br>
-        <button type="submit" class="btn btn-primary" name="updateLampiran">Update</button>
-    </div>
-</form>
-
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-<script>
-  $(document).ready(function() {
-    $('.edit-button').click(function() {
-      var id_lampiran = $(this).data('id');
-      var id_surat = $(this).closest('tr').find('td:nth-child(2)').text();
-      var deskripsi_lampiran = $(this).closest('tr').find('td:nth-child(3)').text();
-
-      $('#editLampiran input[name="id_lampiran"]').val(id_lampiran);
-      $('#editLampiran input[name="id_surat"]').val(id_surat);
-      $('#editLampiran input[name="deskripsi_lampiran"]').val(deskripsi_lampiran);
-    });
-  });
-</script>
+ 
 
 <!-- Modal Hapus Pengirim -->
 <div class="modal fade" id="deleteLampiran<?php echo $id_lampiran; ?>">
@@ -549,6 +510,50 @@ require 'function.php';
     </div>
   </div>
   <script>
+  $(document).ready(function() {
+    $('.edit-button').click(function() {
+      var id_lampiran = $(this).data('id');
+      var id_surat = $(this).closest('tr').find('td:nth-child(2)').text();
+      var deskripsi_lampiran = $(this).closest('tr').find('td:nth-child(3)').text();
+
+      $('#editLampiran input[name="id_lampiran"]').val(id_lampiran);
+      $('#editLampiran input[name="id_surat"]').val(id_surat);
+      $('#editLampiran input[name="deskripsi_lampiran"]').val(deskripsi_lampiran);
+    });
+  });
+</script>
+
+<!-- The Modal -->
+<div class="modal fade" id="editLampiran">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Data Lampiran</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+<form method="post" action="lampiran.php">
+    <div class="modal-body">
+        <input type="hidden" name="id_lampiran" value="<?php echo $id_lampiran; ?>">
+        <input type="hidden" name="id_surat" value="<?php echo $id_surat; ?>" >
+        <input type="text" name="deskripsi_lampiran" value="<?php echo $deskripsi_lampiran; ?>" placeholder="deskripsi_lampiran" class="form-control" required><br>
+        <button type="submit" class="btn btn-primary" name="updateLampiran">Update</button>
+    </div>
+</form>
+
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
   $(document).ready(function() {
     $('.edit-button').click(function() {
       var id_lampiran = $(this).data('id');

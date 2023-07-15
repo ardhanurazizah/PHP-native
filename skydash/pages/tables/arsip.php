@@ -325,7 +325,7 @@ require 'function.php';
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Surat</a></li>
               </ul>
             </div>
             <div class="collapse" id="tables">
@@ -401,8 +401,10 @@ require 'function.php';
                                 <td><?=$keterangan;?></td>
                                 <td><?=$tanggal;?></td>
                                 <td><?=$ket;?></td>
-                                <td><a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editArsip" data-id="<?=$id_arsip;?>">Edit</a>
-                                <a class="btn btn-danger hapus-button" data-toggle="modal" data-target="#deleteArsip<?php echo $id_arsip; ?>">Hapus</a></td>
+                                <td>
+                                  <a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editArsip" data-id="<?=$id_arsip;?>">Edit</a>
+                                  <a href="?hapus=<?php echo $data['id_arsip']; ?>" class="btn-danger btn" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
+                                </td>
                               </tr>
                               <?php
                               };
@@ -499,7 +501,7 @@ require 'function.php';
             <!-- Modal body -->
 <form method="post" action="arsip.php">
     <div class="modal-body">
-        <input type="hidden" name="id_arsip" value="<?php echo $is_arsip; ?>">
+        <input type="hidden" name="id_arsip" value="<?php echo $id_arsip; ?>">
         <input type="hidden" name="id_surat" value="<?php echo $id_surat; ?>">
         <input type="text" name="tanggal" value="<?php echo $tanggal; ?>" placeholder="Tanggal" class="form-control" required><br>
         <input type="text" name="ket" value="<?php echo $ket; ?>" placeholder="Keterangan" class="form-control" required><br>

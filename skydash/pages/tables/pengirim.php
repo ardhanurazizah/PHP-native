@@ -325,7 +325,7 @@ require 'function.php';
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Surat</a></li>
               </ul>
             </div>
             <div class="collapse" id="tables">
@@ -406,7 +406,19 @@ require 'function.php';
                           <td><?=$alamat?></td>
                           <td>
                             <a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editPengirim" data-id="<?=$id_pengirim;?>">Edit</a>
-                            <a class="btn btn-danger hapus-button" data-toggle="modal" data-target="#deletePengirim<?php echo $id_pengirim; ?>">Hapus</a>
+                            <!-- <a href="?hapus=<?php echo $data['id_pengirim']; ?>" class="btn-danger btn" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a> -->
+                            <?php
+// Check if data is used in the surat table
+$isDataUsed = mysqli_query($conn, "SELECT * FROM surat WHERE id_pengirim = $id_pengirim");
+if (mysqli_num_rows($isDataUsed) > 0) {
+    // Data is used, display the delete button with an onclick event to show the warning alert
+    echo '<a href="?hapus='.$data['id_pengirim'].'" class="btn-danger btn" onclick="return showDeleteWarning()">Hapus</a>';
+} else {
+    // Data is not used, display the delete button
+    echo '<a href="?hapus='.$data['id_pengirim'].'" class="btn-danger btn" onclick="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')">Hapus</a>';
+}
+?>
+
                           </td>
                         </tr>
                         <div class="modal" id="delete<?php echo $id_pengirim;?>">
@@ -545,44 +557,11 @@ require 'function.php';
     });
   });
 </script>
-
-<!-- Modal Hapus Pengirim -->
-<div class="modal fade" id="deletePengirim<?php echo $id_pengirim; ?>">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Hapus Pengirim?</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <p>Anda yakin ingin menghapus data pengirim ini?</p>
-        </div>
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <form method="POST">
-            <input type="hidden" name="id_pengirim" value="<?php echo $id_pengirim; ?>">
-            <button type="submit" class="btn btn-danger" name="hapusPengirim">Hapus</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-  $(document).ready(function() {
-    $('.hapus-button').click(function() {
-      var id_pengirim = $(this).data('id');
-      var nama_pengirim = $(this).closest('tr').find('td:nth-child(2)').text();
-      var jabatan = $(this).closest('tr').find('td:nth-child(3)').text();
-      var alamat = $(this).closest('tr').find('td:nth-child(4)').text();
-
-      $('#editPengirim input[name="id_pengirim"]').val(id_pengirim);
-      $('#editPengirim input[name="nama_pengirim"]').val(nama_pengirim);
-      $('#editPengirim input[name="jabatan"]').val(jabatan);
-      $('#editPengirim input[name="alamat"]').val(alamat);
-    });
-  });
+<script>
+function showDeleteWarning() {
+  alert('Data tidak dapat di hapus');
+  return false; // Prevent the default action (deletion)
+}
 </script>
+
 </html>

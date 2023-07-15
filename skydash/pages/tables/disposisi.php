@@ -325,7 +325,7 @@ require 'function.php';
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Surat</a></li>
               </ul>
             </div>
             <div class="collapse" id="tables">
@@ -403,7 +403,7 @@ require 'function.php';
                                 <td><?=$tanggal;?></td>
                                 <td>
                                 <a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editD" data-id="<?=$id_disposisi;?>">Edit</a>
-                            <a class="btn btn-danger hapus-button" data-toggle="modal" data-target="#deleteD<?php echo $id_disposisi; ?>">Hapus</a>
+                                  <a href="?hapus=<?php echo $data['id_disposisi']; ?>" class="btn-danger btn" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
                                 </td>
                               </tr>
                               <?php
@@ -502,9 +502,9 @@ require 'function.php';
 <form method="post" action="disposisi.php">
     <div class="modal-body">
         <input type="hidden" name="id_disposisi" value="<?php echo $id_disposisi; ?>">
-        <input type="hidden" name="id_surat" value="<?php echo $id_surat; ?>">
-        <input type="text" name="isi" value="<?php echo $isi; ?>" placeholder="Isi" class="form-control" required><br>
-        <input type="text" name="tanggal" value="<?php echo $tanggal; ?>" placeholder="Tanggal" class="form-control" required><br>
+        <input type="hidden" name="id_surat" value="<?php echo $id_surat; ?>" >
+        <input type="text" name="isi" value="<?php echo $isi; ?>" placeholder="isi" class="form-control" required><br>
+        <input type="text" name="tanggal" value="<?php echo $tanggal; ?>" placeholder="tanggal" class="form-control" required><br>
         <button type="submit" class="btn btn-primary" name="updateDisposisi">Update</button>
     </div>
 </form>
@@ -526,10 +526,10 @@ require 'function.php';
       var isi = $(this).closest('tr').find('td:nth-child(3)').text();
       var tanggal = $(this).closest('tr').find('td:nth-child(4)').text();
 
-      $('#editDisposisi input[name="id_disposisi"]').val(id_disposisi);
-      $('#editDisposisi input[name="id_surat"]').val(id_surat);
-      $('#editDisposisi input[name="isi"]').val(isi);
-      $('#editDisposisi input[name="tanggal"]').val(tanggal);
+      $('#editD input[name="id_disposisi"]').val(id_disposisi);
+      $('#editD input[name="id_surat"]').val(id_surat);
+      $('#editD input[name="isi"]').val(isi);
+      $('#editD input[name="tanggal"]').val(tanggal);
     });
   });
 </script>

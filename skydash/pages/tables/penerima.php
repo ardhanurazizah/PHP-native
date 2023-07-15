@@ -325,7 +325,7 @@ require 'function.php';
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/tables/table.php">Surat</a></li>
               </ul>
             </div>
             <div class="collapse" id="tables">
@@ -401,8 +401,10 @@ require 'function.php';
                           <td><?=$nama_penerima;?></td>
                           <td><?=$jabatan;?></td>
                           <td><?=$alamat?></td>
-                          <td><a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editPenerima" data-id="<?=$id_penerima;?>">Edit</a>
-                          <a class="btn btn-danger hapus-button" data-toggle="modal" data-target="#deletePenerima<?php echo $id_penerima; ?>">Hapus</a>
+                          <td>
+                            <a class= "btn btn-warning edit-button" data-toggle="modal" data-target="#editPenerima" data-id="<?=$id_penerima;?>">Edit</a>
+                            <a href="?hapus=<?php echo $data['id_penerima']; ?>" class="btn-danger btn" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
+                        </td>
                         <?php
                         };
                         ?>
@@ -520,43 +522,5 @@ require 'function.php';
   });
 </script>
 
-<!-- Modal Hapus Pengirim -->
-<div class="modal fade" id="deletePenerima<?php echo $id_penerima; ?>">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Hapus Penerima?</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <p>Anda yakin ingin menghapus data penerima ini?</p>
-        </div>
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <form method="POST">
-            <input type="hidden" name="id_penerima" value="<?php echo $id_penerima; ?>">
-            <button type="submit" class="btn btn-danger" name="hapusPenerima">Hapus</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-  $(document).ready(function() {
-    $('.hapus-button').click(function() {
-      var id_penerima = $(this).data('id');
-      var nama_penerima = $(this).closest('tr').find('td:nth-child(2)').text();
-      var jabatan = $(this).closest('tr').find('td:nth-child(3)').text();
-      var alamat = $(this).closest('tr').find('td:nth-child(4)').text();
 
-      $('#editPenerima input[name="id_penerima"]').val(id_penerima);
-      $('#editPenerima input[name="nama_penerima"]').val(nama_penerima);
-      $('#editPenerima input[name="jabatan"]').val(jabatan);
-      $('#editPenerima input[name="alamat"]').val(alamat);
-    });
-  });
-</script>
 </html>
